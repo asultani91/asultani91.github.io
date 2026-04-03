@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Sultani - Professional Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #14b8a6;
+            --secondary-color: #0d9488;
+            --accent-color: #0f766e;
+            --navy-blue: #1e3a8a;
+            --navy-dark: #1e40af;
+            --teal-light: #5eead4;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f0fdfa;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            --text-dark: #f9fafb;
+            --text-light: #d1d5db;
+            --bg-light: #1f2937;
+            --bg-white: #111827;
+            --border-color: #374151;
+            background-color: #0f172a;
+            color: #f9fafb;
+        }
+
+        body.dark-mode nav {
+            background: #1f2937;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #0d9488 100%);
+        }
+
+        body.dark-mode section:nth-child(even) {
+            background: #1a1f2e;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 80px;
+            right: 2rem;
+            z-index: 1001;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background: var(--secondary-color);
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 5px solid white;
+            font-weight: 700;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero .title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .hero .tagline {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--navy-blue);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Stats Counter Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Download Resume Button */
+        .download-resume {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Timeline Section */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            text-align: right;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 55%;
+            text-align: left;
+            padding-left: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 4px solid var(--bg-white);
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-content {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+        }
+
+        /* Testimonials Section */
+        .testimonials-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonials-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-text {
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .testimonial-info h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-pin {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.8rem;
+        }
+
+        .testimonials-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .testimonials-controls button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .testimonials-controls button:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .testimonials-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .testimonials-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .testimonials-dots span.active {
+            background: var(--primary-color);
+        }
+
+        .shoutout-count {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .shoutout-count span {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* AWS Projects Section */
+        .projects-section-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .projects-section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .aws-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 2rem auto 0;
+        }
+
+        .aws-project-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .aws-project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .aws-project-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .aws-project-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+
+        .aws-project-card .tech-tags {
+            margin-bottom: 1rem;
+        }
+
+        .aws-project-card .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .aws-project-card .project-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .agentcore-banner {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            background: linear-gradient(135deg, var(--navy-blue), var(--primary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .agentcore-banner h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .agentcore-banner p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .agentcore-services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .agentcore-services span {
+            background: rgba(255,255,255,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Certifications Section */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cert-card {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(20,184,166,0.2);
+            border-left-color: var(--secondary-color);
+        }
+
+        .cert-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .cert-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-id {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .experience-item {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--navy-blue);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .experience-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(30,58,138,0.15);
+        }
+
+        .experience-header {
+            margin-bottom: 1rem;
+        }
+
+        .experience-header h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-company {
+            font-size: 1.1rem;
+            color: var(--navy-blue);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-meta {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .experience-item li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: var(--bg-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .submit-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .form-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-blue);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        footer p {
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .title {
+                font-size: 1.2rem;
+            }
+
+            .hero .tagline {
+                white-space: normal;
+                font-size: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                padding: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-item {
+                padding: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                margin-left: 0 !important;
+                text-align: left !important;
+                padding-left: 3rem !important;
+                padding-right: 0 !important;
+            }
+
+            .timeline-item::before {
+                left: 11px !important;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dark-mode-toggle {
+                top: 70px;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#aws-projects">Projects</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="avatar">
+                <img src="Photograph.jpg" alt="Ahmad Sultani - Professional Photo">
+            </div>
+            <h1>Ahmad Sultani</h1>
+            <p class="title">Senior IT Professional | Cloud Solutions Architect</p>
+            <p class="tagline">15+ years driving operational excellence through cloud computing, automation, & strategic IT solutions</p>
+            <a href="AS RESUME.pdf" download class="cta-button">Download Resume</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>
+                Distinguished IT professional with 15+ years of progressive experience architecting and delivering 
+                enterprise-grade solutions across Big Tech, international development, and academic sectors. Currently 
+                serving at Amazon, where I maintain 99.9% system uptime for mission-critical infrastructure through 
+                innovative troubleshooting, proactive automation, and strategic operational improvements. My expertise 
+                spans cloud computing, infrastructure optimization, security architecture, and full-lifecycle project 
+                management—consistently driving measurable business outcomes in high-stakes environments.
+            </p>
+            <p>
+                Throughout my career, I've demonstrated a unique ability to bridge technical excellence with strategic 
+                business impact. At Amazon, I've resolved 5,100+ complex technical incidents in just 20 months while 
+                spearheading automation initiatives that eliminate manual workflows and enhance operational efficiency. 
+                Previously, I led transformative digital health initiatives with FHI360 and Jhpiego, deploying national-scale 
+                mHealth platforms that served millions of citizens across Afghanistan. My work at Dentakay achieved a 94% 
+                reduction in manual processes through intelligent CRM optimization and API integrations, directly improving 
+                sales forecasting accuracy by 98%.
+            </p>
+            <p>
+                Based in Culpeper, VA, I hold a Master's degree in Computer Science from South Asian University, along 
+                with multiple AWS certifications including AWS Certified AI Practitioner and AWS Certified Cloud Practitioner, 
+                complemented by advanced networking credentials (CCNP). I'm passionate about leveraging emerging 
+                technologies—particularly cloud-native architectures, AI/ML integration, and infrastructure-as-code—to 
+                solve complex business challenges. As a proven technical leader and mentor, I excel at building 
+                high-performing teams, fostering cross-functional collaboration, and translating technical complexity 
+                into actionable business strategy. Currently seeking opportunities to transition into Solutions Architecture, 
+                where I can apply my deep technical expertise and strategic mindset to design scalable, resilient systems 
+                that drive organizational success.
+            </p>
+        </div>
+    </section>
+
+    <section id="stats" class="fade-in">
+        <h2>Career Highlights</h2>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="5100">0</div>
+                <div class="stat-label">Tickets Resolved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="99.9">0</div>
+                <div class="stat-label">% System Uptime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="6">0</div>
+                <div class="stat-label">AWS Certifications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="54">0</div>
+                <div class="stat-label">Amazon Shout-Outs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="5">0</div>
+                <div class="stat-label">Provinces - World Bank ICT Training</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="94">0</div>
+                <div class="stat-label">% Reduction in Manual Workflows</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="4.8">0</div>
+                <div class="stat-label">Million Citizens Impacted</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="fade-in">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Cloud & Security</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>AWS (EC2, S3, IAM, VPC)</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Cloud Architecture</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Network Security</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Infrastructure Optimization</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Development & Data</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Python</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>SQL & Data Analytics</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>API Integration</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>BI Tools & Reporting</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Leadership & Management</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Project Management</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Team Mentorship</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Stakeholder Engagement</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Incident Response</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="fade-in">
+        <h2>Certifications</h2>
+        <div class="certifications-grid">
+            <div class="cert-card">
+                <h3>AWS Certified AI Practitioner</h3>
+                <p class="cert-date">November 2025</p>
+                <p class="cert-id">ID: 94a61513512e49eb80b3aa34c34ce84b</p>
+            </div>
+            <div class="cert-card">
+                <h3>AWS Certified Cloud Practitioner</h3>
+                <p class="cert-date">November 2025</p>
+                <p class="cert-id">ID: beb0107083d74c4ba95061c1e9de578c</p>
+            </div>
+            <div class="cert-card">
+                <h3>AWS Partner: Generative AI Essentials</h3>
+                <p class="cert-date">December 2025</p>
+            </div>
+            <div class="cert-card">
+                <h3>AWS Well-Architected Proficient</h3>
+                <p class="cert-date">December 2025</p>
+            </div>
+            <div class="cert-card">
+                <h3>Cisco Certified Network Professional (CCNP)</h3>
+                <p class="cert-date">July 2012</p>
+            </div>
+            <div class="cert-card">
+                <h3>Cisco Certified Network Associate (CCNA)</h3>
+                <p class="cert-date">September 2011</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="aws-projects" class="fade-in">
+        <h2>AWS Agentic AI Portfolio</h2>
+        <div class="projects-section-header">
+            <p>Hands-on projects built with Amazon Bedrock, Strands Agents SDK, and AgentCore</p>
+        </div>
+        <div class="aws-projects-grid">
+            <div class="aws-project-card">
+                <h3>🌤️ Agentic Weather Assistant</h3>
+                <p>Built a weather assistant from scratch using Python, Amazon Bedrock (Claude 4.5), and NWS API demonstrating core agentic AI principles — autonomy, reactivity, and proactivity.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Amazon Bedrock</span>
+                    <span class="tech-tag">Claude 4.5</span>
+                    <span class="tech-tag">NWS API</span>
+                </div>
+                <a href="#" class="project-link">🔗 GitHub Link →</a>
+            </div>
+            <div class="aws-project-card">
+                <h3>🛒 Multi-Agent E-Commerce Chatbot</h3>
+                <p>Developed a multi-agent e-commerce chatbot with Bedrock Agents, Lambda, DynamoDB, Knowledge Bases (RAG), Amazon Personalize, and multi-agent collaboration patterns.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Bedrock Agents</span>
+                    <span class="tech-tag">Lambda</span>
+                    <span class="tech-tag">DynamoDB</span>
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">Personalize</span>
+                </div>
+                <a href="#" class="project-link">🔗 GitHub Link →</a>
+            </div>
+            <div class="aws-project-card">
+                <h3>🔧 MCP Productivity Tools</h3>
+                <p>Built AI-powered productivity tools using Model Context Protocol (MCP) with Calculator, Calendar, Weather servers, custom MCP development, and production deployment to Amazon Bedrock AgentCore Runtime with IAM authentication.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">MCP</span>
+                    <span class="tech-tag">AgentCore Runtime</span>
+                    <span class="tech-tag">IAM</span>
+                    <span class="tech-tag">Custom Servers</span>
+                </div>
+                <a href="#" class="project-link">🔗 GitHub Link →</a>
+            </div>
+            <div class="aws-project-card">
+                <h3>🤖 Strands Agents SDK Mastery</h3>
+                <p>Mastered Strands Agents SDK with multi-agent patterns (Swarm, Graph, Agent-as-Tool), MCP integration, Guardrails, persistent memory, and deployment to Lambda/Fargate.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Strands SDK</span>
+                    <span class="tech-tag">Multi-Agent</span>
+                    <span class="tech-tag">Guardrails</span>
+                    <span class="tech-tag">Lambda</span>
+                    <span class="tech-tag">Fargate</span>
+                </div>
+                <a href="#" class="project-link">🔗 GitHub Link →</a>
+            </div>
+            <div class="aws-project-card">
+                <h3>🚀 Amazon Bedrock AgentCore Labs</h3>
+                <p>Completed hands-on labs across 7 production services: Runtime, Memory, Identity, Gateway, Code Interpreter, Browser Automation, and Observability.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">AgentCore</span>
+                    <span class="tech-tag">Runtime</span>
+                    <span class="tech-tag">Memory</span>
+                    <span class="tech-tag">Identity</span>
+                    <span class="tech-tag">Gateway</span>
+                    <span class="tech-tag">Code Interpreter</span>
+                    <span class="tech-tag">Observability</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline" class="fade-in">
+        <h2>Career & Education Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024 - Present</div>
+                    <h3>IT Support Engineer</h3>
+                    <p>Amazon - Arlington, VA</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2021 - 2023</div>
+                    <h3>IT & CRM Solutions Specialist</h3>
+                    <p>Dentakay - Istanbul, Türkiye</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2020</div>
+                    <h3>ICT Consultant</h3>
+                    <p>Jhpiego - Kabul, Afghanistan</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2016 - 2020</div>
+                    <h3>ICT Specialist</h3>
+                    <p>FHI 360 - Kabul, Afghanistan</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2015 - 2016</div>
+                    <h3>IT Project Manager & Head of CS Dept</h3>
+                    <p>Bakhtar University - Kabul, Afghanistan</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2015</div>
+                    <h3>M.Sc. Computer Science</h3>
+                    <p>South Asian University - New Delhi, India</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2013</div>
+                    <h3>B.Sc. Computer Applications</h3>
+                    <p>Bangalore University - Bengaluru, India</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2008 - 2010</div>
+                    <h3>Early Career</h3>
+                    <p>IT Officer & Logistics roles in Afghanistan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="fade-in">
+        <h2>Amazon Shout-Outs</h2>
+        <p class="shoutout-count"><span>54</span> shout-outs received from colleagues across Amazon</p>
+        <div class="testimonials-wrapper">
+            <div class="testimonials-track" id="testimonialsTrack">
+                <!-- Slide 1 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Amazing patience, professionalism and a great teacher who fixed a very complicated problem while making me smarter and more confident.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SR</div>
+                            <div class="testimonial-info">
+                                <h4>Sean Roche</h4>
+                                <p>Director, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🏅 Extra Mile</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Ahmad went above and beyond in helping me troubleshoot multiple issues with my laptop. He did so in a timely fashion and also saved the company money by not requiring an early full laptop replacement. 10/10 top notch experience.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">NE</div>
+                            <div class="testimonial-info">
+                                <h4>Noah Eden</h4>
+                                <p>Program Leader, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🏅 Extra Mile</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thanks for helping with my laptop Ahmad. You went above and beyond, and were friendly and efficient.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">TC</div>
+                            <div class="testimonial-info">
+                                <h4>Tobin Coziahr</h4>
+                                <p>Sr. Principal Engineer, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🔧 Problem Resolver</span>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thank you for helping to define the path forward on a resolution to a problem with my AWS laptop. Your relentless pursuit of solving this problem by using all resources available and pulling in other IT support staff was outstanding.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RE</div>
+                            <div class="testimonial-info">
+                                <h4>Richard Ernst</h4>
+                                <p>Senior Solutions Architect, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🔧 Problem Resolver</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Ahmad was very professional and helpful in resolving an ongoing issue with Office 365 that has been causing a disruption in my workflow.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">YL</div>
+                            <div class="testimonial-info">
+                                <h4>Yuriy Litvinov</h4>
+                                <p>Manager, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🔧 Problem Resolver</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Big shout-out to Ahmad! I had been struggling with email syncing issues for quite some time, and Ahmad jumped right in. He quickly diagnosed the problem and resolved it with impressive efficiency and professionalism.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JV</div>
+                            <div class="testimonial-info">
+                                <h4>Jeny Varghese</h4>
+                                <p>Sr. Manager, Amazon</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🔧 Problem Resolver</span>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thank you Ahmad for diagnosing my hardware failure, ordering the new laptop and getting me set up on the loaner. Your diligence and bias for action were greatly appreciated!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">DR</div>
+                            <div class="testimonial-info">
+                                <h4>Dee Rumford</h4>
+                                <p>Strategic Initiatives Leader, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🔧 Problem Resolver</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thank you Ahmad for solving a perplexing issue much faster than any AI powered tool. So happy we have you as a resource.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">TY</div>
+                            <div class="testimonial-info">
+                                <h4>T. Luke Young</h4>
+                                <p>Amazon</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🤝 Helping Hand</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Ahmad, you did an absolutely amazing job helping me with my IT-related issues! You went above and beyond by detecting and solving issues happening in the background without me even being aware of them! Keep raising the bar!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SS</div>
+                            <div class="testimonial-info">
+                                <h4>Soroush Sotoudeh</h4>
+                                <p>TAM, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">📈 Raising the Bar</span>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thank you for your outstanding support! Really appreciate how quickly you helped me get setup with my laptop upgrade/replacement!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MT</div>
+                            <div class="testimonial-info">
+                                <h4>Mike Thompson</h4>
+                                <p>Sr. Manager, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🏅 Extra Mile</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thank you, Ahmad, for helping me get up and running with my new macOS Developer laptop. As this is my first macOS laptop, your help setting it up was very important to me and greatly appreciated!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SD</div>
+                            <div class="testimonial-info">
+                                <h4>Shaun Doheney</h4>
+                                <p>Principal Analytics Leader, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🏅 Extra Mile</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Every time I go to IT, I'm walking in stressed. But I always leave feeling like my problem was solved, and I can get back to work! Thank you so much!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JW</div>
+                            <div class="testimonial-info">
+                                <h4>Joy Wang</h4>
+                                <p>Communications Specialist, Amazon</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🔧 Problem Resolver</span>
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Thank you for helping me with all 17 of my IT issues this morning! Appreciate the help!!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">KS</div>
+                            <div class="testimonial-info">
+                                <h4>Kristy Schmidt</h4>
+                                <p>Sr. Manager, Amazon</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🤝 Helping Hand</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Huge shout out to Ahmad from IT support! My laptop was completely unusable after an update, and he went above and beyond to get me back up and running. He reimaged my laptop twice and helped me set up my new machine with all the essentials.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RG</div>
+                            <div class="testimonial-info">
+                                <h4>Rebeca Gonzalez</h4>
+                                <p>Demand Gen Rep, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">🤝 Helping Hand</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Ahmad, Thank you for your rapid professional assistance with my system. I appreciate you diving deep and identifying the root cause preventing a return visit.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">CB</div>
+                            <div class="testimonial-info">
+                                <h4>Cherokee Boose</h4>
+                                <p>Senior Technical Trainer, AWS</p>
+                            </div>
+                        </div>
+                        <span class="testimonial-pin">⚡ Bias for Action</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonials-controls">
+                <button id="prevBtn" aria-label="Previous testimonials">←</button>
+                <div class="testimonials-dots" id="testimonialsDots">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <button id="nextBtn" aria-label="Next testimonials">→</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="fade-in">
+        <h2>Get In Touch</h2>
+        <div class="contact-content">
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mreoyaey" method="POST">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+                <div class="form-message" id="formMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/asultani91" target="_blank" title="LinkedIn">in</a>
+            <a href="https://github.com/asultani91" target="_blank" title="GitHub">gh</a>
+            <a href="https://x.com/as_sultani" target="_blank" title="X (Twitter)">𝕏</a>
+            <a href="mailto:asultani911007@gmail.com" title="Email">✉</a>
+        </div>
+        <p>asultani911007@gmail.com | +1-571-619-4075 | Culpeper, VA</p>
+        <p>&copy; 2026 Ahmad Sultani. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Fade-in Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Stats Counter Animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let hasAnimated = false;
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    statNumbers.forEach(stat => {
+                        const target = parseFloat(stat.getAttribute('data-target'));
+                        const duration = 2000;
+                        const increment = target / (duration / 16);
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                // Format large numbers with commas
+                                if (target >= 1000) {
+                                    stat.textContent = Math.floor(current).toLocaleString();
+                                } else {
+                                    stat.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
+                                }
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                // Final value formatting
+                                if (target >= 1000) {
+                                    stat.textContent = target.toLocaleString();
+                                } else {
+                                    stat.textContent = target % 1 === 0 ? target : target.toFixed(1);
+                                }
+                            }
+                        };
+                        
+                        updateCounter();
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        const statsSection = document.getElementById('stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Testimonials Carousel
+        const track = document.getElementById('testimonialsTrack');
+        const dots = document.querySelectorAll('#testimonialsDots span');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 0;
+        const totalSlides = 5;
+        let autoSlideInterval;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetAutoSlide();
+            });
+        });
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        startAutoSlide();
+
+        // Form validation and submission via Formspree
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const formMessage = document.getElementById('formMessage');
+            const submitBtn = this.querySelector('.submit-button');
+            
+            // Validation
+            if (!name || !email || !message) {
+                formMessage.textContent = 'Please fill in all required fields.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                return;
+            }
+            
+            // Submit to Formspree
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    formMessage.textContent = 'Thank you! Your message has been sent successfully.';
+                    formMessage.className = 'form-message success';
+                    formMessage.style.display = 'block';
+                    this.reset();
+                } else {
+                    formMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                }
+            }).catch(() => {
+                formMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            }).finally(() => {
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+                setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
+            });
+        });
+
+        // Smooth scroll animation for skill bars on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.skill-progress').forEach(bar => {
+                        bar.style.width = bar.style.width;
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skills-grid').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
