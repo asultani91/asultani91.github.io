@@ -415,6 +415,49 @@
             color: var(--text-light);
         }
 
+        /* Logo Banner */
+        .logo-banner {
+            overflow: hidden;
+            padding: 2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-track {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            animation: scrollLogos 30s linear infinite;
+            width: max-content;
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        .logo-track img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: filter 0.3s, opacity 0.3s;
+        }
+
+        .logo-track img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        @keyframes scrollLogos {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         /* Testimonials Section */
         .testimonials-wrapper {
             max-width: 1000px;
@@ -672,10 +715,16 @@
         /* Certifications Section */
         .certifications-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
             max-width: 1000px;
             margin: 0 auto;
+        }
+
+        a.cert-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .cert-card {
@@ -683,32 +732,31 @@
             padding: 1.5rem;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--primary-color);
             transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
         }
 
         .cert-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(20,184,166,0.2);
-            border-left-color: var(--secondary-color);
+        }
+
+        .cert-card img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 1rem;
         }
 
         .cert-card h3 {
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin-bottom: 0.5rem;
             color: var(--text-dark);
         }
 
         .cert-date {
             color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .cert-id {
-            color: var(--text-light);
             font-size: 0.85rem;
-            font-family: monospace;
         }
 
         /* Experience Section */
@@ -1038,7 +1086,7 @@
                 <img src="Photograph.jpg" alt="Ahmad Sultani - Professional Photo">
             </div>
             <h1>Ahmad Sultani</h1>
-            <p class="title">Senior IT Professional | Cloud Solutions Architect</p>
+            <p class="title">Senior IT Professional | Solutions Architect Associate</p>
             <p class="tagline">15+ years driving operational excellence through cloud computing, automation, & strategic IT solutions</p>
             <a href="AS RESUME.pdf" download class="cta-button">Download Resume</a>
         </div>
@@ -1057,7 +1105,7 @@
             </p>
             <p>
                 Throughout my career, I've demonstrated a unique ability to bridge technical excellence with strategic 
-                business impact. At Amazon, I've resolved 5,100+ complex technical incidents in just 20 months while 
+                business impact. At Amazon, I've resolved 6,100+ complex technical incidents in just 20 months while 
                 spearheading automation initiatives that eliminate manual workflows and enhance operational efficiency. 
                 Previously, I led transformative digital health initiatives with FHI360 and Jhpiego, deploying national-scale 
                 mHealth platforms that served millions of citizens across Afghanistan. My work at Dentakay achieved a 94% 
@@ -1066,7 +1114,7 @@
             </p>
             <p>
                 Based in Culpeper, VA, I hold a Master's degree in Computer Science from South Asian University, along 
-                with multiple AWS certifications including AWS Certified AI Practitioner and AWS Certified Cloud Practitioner, 
+                with multiple AWS certifications including AWS Certified Solutions Architect Associate, AI Practitioner, and Cloud Practitioner, 
                 complemented by advanced networking credentials (CCNP). I'm passionate about leveraging emerging 
                 technologies—particularly cloud-native architectures, AI/ML integration, and infrastructure-as-code—to 
                 solve complex business challenges. As a proven technical leader and mentor, I excel at building 
@@ -1086,7 +1134,7 @@
                 <div class="stat-label">Years Experience</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" data-target="5100">0</div>
+                <div class="stat-number" data-target="6119">0</div>
                 <div class="stat-label">Tickets Resolved</div>
             </div>
             <div class="stat-card">
@@ -1094,11 +1142,11 @@
                 <div class="stat-label">% System Uptime</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" data-target="6">0</div>
+                <div class="stat-number" data-target="7">0</div>
                 <div class="stat-label">AWS Certifications</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" data-target="54">0</div>
+                <div class="stat-number" data-target="56">0</div>
                 <div class="stat-label">Amazon Shout-Outs</div>
             </div>
             <div class="stat-card">
@@ -1244,32 +1292,56 @@
     <section id="certifications" class="fade-in">
         <h2>Certifications</h2>
         <div class="certifications-grid">
-            <div class="cert-card">
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/aws-certified-solutions-architect-associate.png" alt="AWS Certified Solutions Architect Associate">
+                <h3>AWS Solutions Architect Associate</h3>
+                <p class="cert-date">April 2026</p>
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/aws-certified-ai-practitioner.png" alt="AWS Certified AI Practitioner">
                 <h3>AWS Certified AI Practitioner</h3>
                 <p class="cert-date">November 2025</p>
-                <p class="cert-id">ID: 94a61513512e49eb80b3aa34c34ce84b</p>
-            </div>
-            <div class="cert-card">
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/aws-certified-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner">
                 <h3>AWS Certified Cloud Practitioner</h3>
                 <p class="cert-date">November 2025</p>
-                <p class="cert-id">ID: beb0107083d74c4ba95061c1e9de578c</p>
-            </div>
-            <div class="cert-card">
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/aws-partner-agentic-ai-essentials-training-badge.png" alt="AWS Partner Agentic AI Essentials">
+                <h3>AWS Partner: Agentic AI Essentials</h3>
+                <p class="cert-date">April 2026</p>
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/aws-partner-generative-ai-essentials-training-badge.png" alt="AWS Partner Generative AI Essentials">
                 <h3>AWS Partner: Generative AI Essentials</h3>
                 <p class="cert-date">December 2025</p>
-            </div>
-            <div class="cert-card">
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/well-architected-proficient.png" alt="AWS Well-Architected Proficient">
                 <h3>AWS Well-Architected Proficient</h3>
                 <p class="cert-date">December 2025</p>
-            </div>
-            <div class="cert-card">
-                <h3>Cisco Certified Network Professional (CCNP)</h3>
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/CCNP_600.png" alt="Cisco Certified Network Professional">
+                <h3>Cisco CCNP</h3>
                 <p class="cert-date">July 2012</p>
-            </div>
-            <div class="cert-card">
-                <h3>Cisco Certified Network Associate (CCNA)</h3>
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/ccna_600.png" alt="Cisco Certified Network Associate">
+                <h3>Cisco CCNA</h3>
                 <p class="cert-date">September 2011</p>
-            </div>
+            </a>
+            <a href="https://www.credly.com/users/ahmad-sultani.313c375f" target="_blank" class="cert-card">
+                <img src="badges/AgenticAI.png" alt="AWS Agentic AI">
+                <h3>AWS Agentic AI</h3>
+                <p class="cert-date">March 2026</p>
+            </a>
+            <a href="https://besaprogram.com" target="_blank" class="cert-card">
+                <img src="badges/Besa_600.webp" alt="BESA - Become a Solutions Architect">
+                <h3>Become a Solutions Architect</h3>
+                <p class="cert-date">March 2026</p>
+            </a>
         </div>
     </section>
 
@@ -1288,7 +1360,7 @@
                     <span class="tech-tag">Claude 4.5</span>
                     <span class="tech-tag">NWS API</span>
                 </div>
-                <a href="#" class="project-link">🔗 GitHub Link →</a>
+                <a href="https://github.com/asultani91/agentic-weather-assistant-bedrock/blob/main/README.md" target="_blank" class="project-link">🔗 GitHub Link →</a>
             </div>
             <div class="aws-project-card">
                 <h3>🛒 Multi-Agent E-Commerce Chatbot</h3>
@@ -1300,7 +1372,7 @@
                     <span class="tech-tag">RAG</span>
                     <span class="tech-tag">Personalize</span>
                 </div>
-                <a href="#" class="project-link">🔗 GitHub Link →</a>
+                <a href="https://github.com/asultani91/eCommerce-Chatbot/blob/main/README.md" target="_blank" class="project-link">🔗 GitHub Link →</a>
             </div>
             <div class="aws-project-card">
                 <h3>🔧 MCP Productivity Tools</h3>
@@ -1311,7 +1383,7 @@
                     <span class="tech-tag">IAM</span>
                     <span class="tech-tag">Custom Servers</span>
                 </div>
-                <a href="#" class="project-link">🔗 GitHub Link →</a>
+                <a href="https://github.com/asultani91/mcp-productivity-accelerators-aws/blob/main/README.md" target="_blank" class="project-link">🔗 GitHub Link →</a>
             </div>
             <div class="aws-project-card">
                 <h3>🤖 Strands Agents SDK Mastery</h3>
@@ -1323,7 +1395,7 @@
                     <span class="tech-tag">Lambda</span>
                     <span class="tech-tag">Fargate</span>
                 </div>
-                <a href="#" class="project-link">🔗 GitHub Link →</a>
+                <a href="https://github.com/asultani91/strands-agents-workshop-aws/blob/main/README.md" target="_blank" class="project-link">🔗 GitHub Link →</a>
             </div>
             <div class="aws-project-card">
                 <h3>🚀 Amazon Bedrock AgentCore Labs</h3>
@@ -1337,12 +1409,46 @@
                     <span class="tech-tag">Code Interpreter</span>
                     <span class="tech-tag">Observability</span>
                 </div>
+                <a href="https://github.com/asultani91/Amazon-Bedrock-AgentCore-with-Strands-Agents-Nova-Pro/blob/main/README.md" target="_blank" class="project-link">🔗 GitHub Link →</a>
             </div>
         </div>
     </section>
 
     <section id="timeline" class="fade-in">
         <h2>Career & Education Timeline</h2>
+        <div class="logo-banner">
+            <div class="logo-track">
+                <img src="logos/Amazon.png" alt="Amazon">
+                <img src="logos/AWS.png" alt="AWS">
+                <img src="logos/fhi360.svg" alt="FHI 360">
+                <img src="logos/jhpiego.jpg" alt="Jhpiego">
+                <img src="logos/USAID.png" alt="USAID">
+                <img src="logos/WorldBank.jpg" alt="World Bank">
+                <img src="logos/equalaccess.jpg" alt="Equal Access">
+                <img src="logos/Intersos.png" alt="INTERSOS">
+                <img src="logos/bdn.webp" alt="BDN">
+                <img src="logos/DAC.png" alt="DAC">
+                <img src="logos/dentakay.svg" alt="Dentakay">
+                <img src="logos/sau.png" alt="South Asian University">
+                <img src="logos/BU.jpeg" alt="Bakhtar University">
+                <img src="logos/bakhtaruniversity.jpg" alt="Bakhtar University">
+                <!-- Duplicate for seamless loop -->
+                <img src="logos/Amazon.png" alt="Amazon">
+                <img src="logos/AWS.png" alt="AWS">
+                <img src="logos/fhi360.svg" alt="FHI 360">
+                <img src="logos/jhpiego.jpg" alt="Jhpiego">
+                <img src="logos/USAID.png" alt="USAID">
+                <img src="logos/WorldBank.jpg" alt="World Bank">
+                <img src="logos/equalaccess.jpg" alt="Equal Access">
+                <img src="logos/Intersos.png" alt="INTERSOS">
+                <img src="logos/bdn.webp" alt="BDN">
+                <img src="logos/DAC.png" alt="DAC">
+                <img src="logos/dentakay.svg" alt="Dentakay">
+                <img src="logos/sau.png" alt="South Asian University">
+                <img src="logos/BU.jpeg" alt="Bakhtar University">
+                <img src="logos/bakhtaruniversity.jpg" alt="Bakhtar University">
+            </div>
+        </div>
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-content">
